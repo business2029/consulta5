@@ -159,6 +159,15 @@
   </div>
 
   <script>
+    
+     function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+     const nome = getQueryParam('nome');
+
+     if (nome) document.getElementById('nome').textContent = nome;
+    
   function animateValue(id, start, end, duration) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -181,14 +190,6 @@
     animateValue('amount', 0, 7854.63, 1200);
   }, 4000); // tempo mais longo, para garantir que iframe já esteja visível
 
-     function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-     const nome = getQueryParam('nome');
-
-     if (nome) document.getElementById('nome').textContent = nome;
-    
 </script>
 
 </body>
