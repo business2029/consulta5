@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Indenização Aprovada</title>
+<style>
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    padding: 30px 20px;
+    max-width: 480px;
+    margin: auto;
+    overflow-x: hidden;
+    user-select: none;
+  }
+
+  .logo {
+    display: block;
+    margin: 0 auto 30px auto;
+    width: 80px;
+    opacity: 0;
+    animation: fadeInUp 0.7s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  .progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .step {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.7s ease forwards;
+  }
+
+  .step:nth-child(1) { animation-delay: 0.6s; }
+  .step:nth-child(3) { animation-delay: 1.1s; }
+  .step:nth-child(5) { animation-delay: 1.6s; }
+
+  .circle {
+    margin: 0 auto 8px;
+    width: 36px;
+    height: 36px;
+    background-color: #9333ea;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.6);
+  }
+
+  .line {
+    height: 4px;
+    background-color: #9333ea;
+    flex-grow: 1;
+    border-radius: 2px;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: scaleIn 0.5s ease forwards;
+  }
+
+  .line:nth-child(2) { animation-delay: 0.85s; }
+  .line:nth-child(4) { animation-delay: 1.35s; }
+
+  h2 {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 2s;
+  }
+
+  .amount-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #444;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 2.3s;
+  }
+
+  .amount {
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: #3a9c1a;
+    margin: 10px 0 20px 0;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 2.6s;
+  }
+
+  .info {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 3s;
+  }
+
+  /* Animações */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+</style>
+</head>
+<body>
+
+  <img class="logo" src="https://i.postimg.cc/X7JSyHqM/Captura-de-tela-2025-05-30-234638.png" alt="Logo Nubank" />
+
+  <div class="progress" aria-label="Progresso do funil de indenização" role="list">
+    <div class="step" role="listitem" aria-current="step">
+      <div class="circle" aria-hidden="true">✔</div>
+      <div>Solicitando Aprovação</div>
+    </div>
+    <div class="line" aria-hidden="true"></div>
+    <div class="step" role="listitem">
+      <div class="circle" aria-hidden="true">✔</div>
+      <div>Analisando Dados</div>
+    </div>
+    <div class="line" aria-hidden="true"></div>
+    <div class="step" role="listitem">
+      <div class="circle" aria-hidden="true">✔</div>
+      <div>Indenização Aprovada</div>
+    </div>
+  </div>
+
+  <center><h2>WELLINGTON DE AMORIM PEREIRA</h2></center>
+  <center><p class="amount-label">Sua indenização no valor de</p></center>
+  <center> <div class="amount" id="amount">R$ 0,00</div></center>
+  <div class="info">
+    <center>Este valor está reservado para você.<br /></center>
+    <center>Complete os próximos passos para receber sua indenização ainda hoje.</center>
+  </div>
+
+  <script>
+    // Animação suave do valor de indenização
+    function animateValue(id, start, end, duration) {
+      const el = document.getElementById(id);
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const progress = currentTime - startTime;
+        const val = Math.min(start + (end - start) * (progress / duration), end);
+        el.textContent = 'R$ ' + val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (progress < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      requestAnimationFrame(animation);
+    }
+
+    // Espera as animações iniciais e executa a contagem
+    setTimeout(() => {
+      animateValue('amount', 0, 7854.63, 1200);
+    }, 2600);
+  </script>
+
+</body>
+</html>
