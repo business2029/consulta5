@@ -159,40 +159,39 @@
   </div>
 
   <script>
-    // Animação suave do valor de indenização
-    function animateValue(id, start, end, duration) {
-      const el = document.getElementById(id);
-      let startTime = null;
+  function animateValue(id, start, end, duration) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let startTime = null;
 
-      function animation(currentTime) {
-        if (!startTime) startTime = currentTime;
-        const progress = currentTime - startTime;
-        const val = Math.min(start + (end - start) * (progress / duration), end);
-        el.textContent = 'R$ ' + val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (progress < duration) {
-          requestAnimationFrame(animation);
-        }
+    function animation(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const progress = currentTime - startTime;
+      const value = Math.min(start + (end - start) * (progress / duration), end);
+      el.textContent = 'R$ ' + value.toFixed(2).replace('.', ',');
+      if (progress < duration) {
+        requestAnimationFrame(animation);
       }
-
-      requestAnimationFrame(animation);
     }
 
-    // Espera as animações iniciais e executa a contagem
-  window.addEventListener('load', () => {
-  setTimeout(() => {
-    animateValue('amount', 0, 7854.63, 1200);
-  }, 3000);
-});
+    requestAnimationFrame(animation);
+  }
 
+  const target = document.getElementById("amount");
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateValue('amount', 0, 7854.63, 1200);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
 
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-     const nome = getQueryParam('nome');
+  observer.observe(target);
+</script>
 
-     if (nome) document.getElementById('nome').textContent = nome;
-    
   </script>
 
 </body>
