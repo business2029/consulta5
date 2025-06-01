@@ -178,9 +178,12 @@
     }
 
     // Espera as animações iniciais e executa a contagem
-    setTimeout(() => {
-      animateValue('amount', 0, 7854.63, 1200);
-    }, 2600);
+  window.addEventListener('load', () => {
+  setTimeout(() => {
+    animateValue('amount', 0, 7854.63, 1200);
+  }, 3000);
+});
+
 
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
