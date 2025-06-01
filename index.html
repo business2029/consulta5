@@ -180,11 +180,15 @@
   const target = document.getElementById("amount");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateValue('amount', 0, 7854.63, 1200);
-        obs.unobserve(entry.target);
-      }
-    });
+     if ('IntersectionObserver' in window) {
+  // Usa observer normalmente (já no código acima)
+} else {
+  // Fallback para navegadores antigos
+  setTimeout(() => {
+    animateValue('amount', 0, 7854.63, 1200);
+  }, 3000);
+}
+
   }, {
     threshold: 0.5
   });
