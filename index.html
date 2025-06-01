@@ -150,7 +150,7 @@
     </div>
   </div>
 
-  <center><h2>WELLINGTON DE AMORIM PEREIRA</h2></center>
+  <center><h2> <span id="nome">...</span></h2></center>
   <center><p class="amount-label">Sua indenização no valor de</p></center>
   <center> <div class="amount" id="amount">R$ 0,00</div></center>
   <div class="info">
@@ -181,6 +181,15 @@
     setTimeout(() => {
       animateValue('amount', 0, 7854.63, 1200);
     }, 2600);
+
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+     const nome = getQueryParam('nome');
+
+     if (nome) document.getElementById('nome').textContent = nome;
+    
   </script>
 
 </body>
